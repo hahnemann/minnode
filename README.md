@@ -1,0 +1,2 @@
+# minnode
+Minimum Cost Node
