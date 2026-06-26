@@ -48,3 +48,11 @@ Thumbs.db
 # Vite
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
+
+# Python (notebook use only — not the full template)
+# Full template: https://github.com/github/gitignore/blob/main/Python.gitignore
+.venv
+__pycache__/
+*.pyc
+.ipynb_checkpoints
+.pytest_cache/
