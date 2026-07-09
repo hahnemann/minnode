@@ -56,3 +56,6 @@ __pycache__/
 *.pyc
 .ipynb_checkpoints
 .pytest_cache/
+
+# Generated data (reproduce by running notebooks/prepare_data.ipynb)
+data/processed/
