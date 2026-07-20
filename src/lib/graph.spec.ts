@@ -1,13 +1,8 @@
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { describe, it, expect } from 'vitest';
-import {
-	buildGraph,
-	dijkstra,
-	optimalMeetingPoint,
-	rankDestinations,
-	type FareEdge
-} from './graph';
+import { buildGraph, dijkstra, optimalMeetingPoint, rankDestinations } from './graph';
+import { parseFareEdges } from './fareCsv';
 
 describe('dijkstra', () => {
 	// A -1- B -1- C, and A -10- C directly. Shortest A->C is via B (cost 2), not the direct edge (cost 10).
@@ -92,28 +87,15 @@ describe('optimalMeetingPoint', () => {
 describe('optimalMeetingPoint against real City Pair data', () => {
 	// Validates the TypeScript port against notebooks/prepare_data.ipynb, whose Section 2
 	// computed this exact result independently in Python against the same processed CSV.
-	function loadFareEdges(): FareEdge[] {
+	function loadCsv(): string {
 		const csvPath = fileURLToPath(
 			new URL('../../data/processed/airport_pair_fares.csv', import.meta.url)
 		);
-		const lines = readFileSync(csvPath, 'utf-8').trim().split('\n');
-		const header = lines[0].split(',');
-		const originIdx = header.indexOf('origin');
-		const destinationIdx = header.indexOf('destination');
-		const fareIdx = header.indexOf('yca_fare');
-
-		return lines.slice(1).map((line) => {
-			const cols = line.split(',');
-			return {
-				origin: cols[originIdx],
-				destination: cols[destinationIdx],
-				fare: Number(cols[fareIdx])
-			};
-		});
+		return readFileSync(csvPath, 'utf-8');
 	}
 
 	it('matches the notebook-validated result for MSP, DCA, LAX', () => {
-		const graph = buildGraph(loadFareEdges());
+		const graph = buildGraph(parseFareEdges(loadCsv()));
 		const result = optimalMeetingPoint(graph, ['MSP', 'DCA', 'LAX']);
 
 		expect(result.destination).toBe('ORD');
