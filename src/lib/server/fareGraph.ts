@@ -12,3 +12,7 @@ export function getFareGraph(): FareGraph {
 	}
 	return cachedGraph;
 }
+
+export function getAirportCodes(): string[] {
+	return Array.from(getFareGraph().keys()).sort();
+}

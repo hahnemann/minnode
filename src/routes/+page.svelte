@@ -11,7 +11,18 @@
 
 <form method="GET">
 	<label for="origins">Origin airports (IATA codes, comma or space separated)</label>
-	<input id="origins" name="origins" bind:value={originsInput} placeholder="MSP, DCA, LAX" />
+	<input
+		id="origins"
+		name="origins"
+		list="airport-codes"
+		bind:value={originsInput}
+		placeholder="MSP, DCA, LAX"
+	/>
+	<datalist id="airport-codes">
+		{#each data.airportCodes as code (code)}
+			<option value={code}></option>
+		{/each}
+	</datalist>
 	<button type="submit">Find meeting point</button>
 </form>
 
