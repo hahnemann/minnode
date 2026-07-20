@@ -5,14 +5,12 @@ import type { PageServerLoad } from './$types';
 const MAX_RANKED_RESULTS = 10;
 
 export const load: PageServerLoad = ({ url }) => {
-	const requestedOrigins = Array.from(
-		new Set(
-			(url.searchParams.get('origins') ?? '')
-				.split(/[,\s]+/)
-				.map((code) => code.trim().toUpperCase())
-				.filter((code) => code.length > 0)
-		)
-	);
+	// Origins are a multiset, not a set: two travelers from the same airport are two
+	// fares, so duplicates are preserved and each occurrence counts toward the total.
+	const requestedOrigins = (url.searchParams.get('origins') ?? '')
+		.split(/[,\s]+/)
+		.map((code) => code.trim().toUpperCase())
+		.filter((code) => code.length > 0);
 
 	if (requestedOrigins.length === 0) {
 		return { requestedOrigins, validOrigins: [], invalidOrigins: [], best: null, ranked: [] };
@@ -20,7 +18,7 @@ export const load: PageServerLoad = ({ url }) => {
 
 	const graph = getFareGraph();
 	const validOrigins = requestedOrigins.filter((code) => graph.has(code));
-	const invalidOrigins = requestedOrigins.filter((code) => !graph.has(code));
+	const invalidOrigins = Array.from(new Set(requestedOrigins.filter((code) => !graph.has(code))));
 
 	if (validOrigins.length === 0) {
 		return { requestedOrigins, validOrigins, invalidOrigins, best: null, ranked: [] };

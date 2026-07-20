@@ -82,6 +82,14 @@ describe('optimalMeetingPoint', () => {
 		const result = optimalMeetingPoint(disconnected, ['P', 'Q']);
 		expect(result.destination).toBeNull();
 	});
+
+	it('weights the total by how many times an origin appears (two travelers from the same airport count twice)', () => {
+		// Two travelers from P, one from Q: meeting at P (cost 0+0+7=7) beats meeting
+		// at hub M (cost 3+3+4=10), since the majority origin pulls the optimum toward it.
+		const result = optimalMeetingPoint(graph, ['P', 'P', 'Q']);
+		expect(result.destination).toBe('P');
+		expect(result.totalCost).toBe(7);
+	});
 });
 
 describe('optimalMeetingPoint against real City Pair data', () => {

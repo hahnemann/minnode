@@ -24,7 +24,7 @@
 		<h2>Best meeting point: {data.best.destination}</h2>
 		<p>Total cost: ${data.best.totalCost.toLocaleString()}</p>
 		<ul>
-			{#each data.validOrigins as origin (origin)}
+			{#each data.validOrigins as origin, i (i)}
 				<li>
 					{origin} → {data.best.destination}: ${data.best.perOriginCost
 						.get(origin)
