@@ -1,4 +1,5 @@
 <script lang="ts">
+	import RouteMap from '$lib/components/RouteMap.svelte';
 	import type { PageData } from './$types';
 
 	let { data }: { data: PageData } = $props();
@@ -44,6 +45,18 @@
 			{/each}
 		</ul>
 	</section>
+
+	{#if data.mapPoints.length > 0}
+		<section>
+			<h2>Route map</h2>
+			<RouteMap
+				points={data.mapPoints}
+				statePaths={data.mapStatePaths}
+				width={data.mapWidth}
+				height={data.mapHeight}
+			/>
+		</section>
+	{/if}
 
 	<section>
 		<h2>Ranked destinations</h2>

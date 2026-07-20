@@ -24,3 +24,54 @@ export function parseFareEdges(csv: string): FareEdge[] {
 		};
 	});
 }
+
+export interface AirportCoordinate {
+	lat: number;
+	lon: number;
+}
+
+export interface MapPoint extends AirportCoordinate {
+	code: string;
+	role: 'origin' | 'destination';
+}
+
+/** A MapPoint after server-side projection to SVG pixel coordinates (see $lib/server/usMap). */
+export interface ProjectedMapPoint {
+	code: string;
+	x: number;
+	y: number;
+	role: 'origin' | 'destination';
+}
+
+/** Airport code -> coordinates, read from the same CSV's origin/destination lat/lon columns. */
+export function parseAirportCoordinates(csv: string): Map<string, AirportCoordinate> {
+	const lines = csv.trim().split('\n');
+	const header = lines[0].split(',');
+	const idx = {
+		origin: header.indexOf('origin'),
+		originLat: header.indexOf('origin_lat'),
+		originLon: header.indexOf('origin_lon'),
+		destination: header.indexOf('destination'),
+		destinationLat: header.indexOf('destination_lat'),
+		destinationLon: header.indexOf('destination_lon')
+	};
+
+	const coordinates = new Map<string, AirportCoordinate>();
+	for (const line of lines.slice(1)) {
+		const cols = line.split(',');
+		if (!coordinates.has(cols[idx.origin])) {
+			coordinates.set(cols[idx.origin], {
+				lat: Number(cols[idx.originLat]),
+				lon: Number(cols[idx.originLon])
+			});
+		}
+		if (!coordinates.has(cols[idx.destination])) {
+			coordinates.set(cols[idx.destination], {
+				lat: Number(cols[idx.destinationLat]),
+				lon: Number(cols[idx.destinationLon])
+			});
+		}
+	}
+
+	return coordinates;
+}
