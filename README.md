@@ -78,7 +78,7 @@ This project follows a staged data-product SDLC framework. Each stage's reasonin
 4. [Data Wrangling](docs/04-data-wrangling.md)
 5. [Fitness for Use](docs/05-fitness-for-use.md)
 6. [Statistical Modeling](docs/06-statistical-modeling.md)
-7. Communication and Dissemination *(forthcoming)*
+7. [Communication and Dissemination](docs/07-communication-dissemination.md)
 8. [Deployment](docs/08-deployment.md)
 9. Assessment *(forthcoming)*
 
