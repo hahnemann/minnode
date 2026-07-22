@@ -79,7 +79,7 @@ This project follows a staged data-product SDLC framework. Each stage's reasonin
 5. [Fitness for Use](docs/05-fitness-for-use.md)
 6. [Statistical Modeling](docs/06-statistical-modeling.md)
 7. Communication and Dissemination *(forthcoming)*
-8. Deployment *(forthcoming)*
+8. [Deployment](docs/08-deployment.md)
 9. Assessment *(forthcoming)*
 
 ## License
