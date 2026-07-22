@@ -35,6 +35,8 @@ The artifact's "model" is a deterministic algorithm (Dijkstra's shortest path, c
 
 This reasoning is offered for the record, not as a self-certified determination — Stage 1 did not document an AI Use Case Inventory entry or an explicit AAO determination on this question, and the framework assigns that determination to the AAO, not to this stage's author. Before deployment (Stage 8), the AAO should confirm this artifact is out of IRM 10.24.1's scope, or make the appropriate inventory entry if it is not.
 
+This conclusion is not contingent on which shortest-path algorithm is used. Stage 1 lists A* as a candidate future iteration; A* also uses a hand-specified, non-learned heuristic rather than one fit from data, so adopting it would not change this determination.
+
 ## Conclusion
 
 `yca_fare` is the cost function for v1.0: it is the only universally-populated fare class, its coverage is what keeps the graph connected, and it best matches the fare a traveler would actually be entitled to book. The algorithm itself is validated by direct comparison to an independent reference implementation rather than by statistical fit metrics, since it is deterministic rather than learned.
