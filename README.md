@@ -80,7 +80,7 @@ This project follows a staged data-product SDLC framework. Each stage's reasonin
 6. [Statistical Modeling](docs/06-statistical-modeling.md)
 7. [Communication and Dissemination](docs/07-communication-dissemination.md)
 8. [Deployment](docs/08-deployment.md)
-9. Assessment *(forthcoming)*
+9. [Assessment](docs/09-assessment.md)
 
 ## License
 
